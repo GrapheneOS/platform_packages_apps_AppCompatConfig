@@ -1,0 +1,4 @@
+filegroup {
+    name: "app_compat_config_proto-src",
+    srcs: ["app_compat_config.proto"],
+}
