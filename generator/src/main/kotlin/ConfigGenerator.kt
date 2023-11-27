@@ -6,6 +6,13 @@ import java.io.File
 
 val configs: AppCompatConfigs = sortConfigs(
 
+    app("com.google.android.GoogleCamera", certs(
+        "f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+        "1975b2f17177bc89a5dff31f9e64a6cae281a53dc1d1d59b1d147fe1c82afa00",
+    )) {
+        minVersion = 65820000
+        changes(DISABLE_HARDENED_MALLOC, DISABLE_MEMORY_TAGGING)
+    },
 )
 
 fun mainGmsCerts() = certs(
