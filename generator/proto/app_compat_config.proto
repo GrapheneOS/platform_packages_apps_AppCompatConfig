@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_package = "com.android.server.os";
+option java_outer_classname = "AppCompatProtos";
+
+message AppCompatConfigs {
+  repeated AppCompatConfig configs = 1;
+}
+
+message AppCompatConfig {
+  PackageSpec package_spec = 1;
+  repeated CompatConfig configs = 2;
+}
+
+message PackageSpec {
+  string pkg_name = 1;
+  repeated bytes certs_sha256 = 2;
+}
+
+message CompatConfig {
+  // min app version code or 0
+  int64 min_version = 1;
+  // max app version code or 0
+  int64 max_version = 2;
+
+  int64 compat_changes = 5;
+}
+
+enum CompatChange {
+  DISABLE_HARDENED_MALLOC = 0;
+  DISABLE_EXTENDED_VA_SPACE = 1;
+  ALLOW_NATIVE_DEBUGGING = 2;
+  DISABLE_MEMORY_TAGGING = 3;
+  ALLOW_MEMORY_DYN_CODE_EXEC = 4;
+  ALLOW_STORAGE_DYN_CODE_EXEC = 5;
+  SUPPRESS_NATIVE_DEBUGGING_NOTIFICATION = 6;
+}
