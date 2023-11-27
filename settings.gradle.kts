@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 }
 
 include(":generator")
+include(":app")
