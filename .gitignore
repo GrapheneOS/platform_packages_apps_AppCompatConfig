@@ -1,0 +1,9 @@
+.gradle
+.idea
+/app/build
+/generator/build
+local.properties
+keystore.properties
+*.keystore
+/releases
+app_compat_configs.pb
