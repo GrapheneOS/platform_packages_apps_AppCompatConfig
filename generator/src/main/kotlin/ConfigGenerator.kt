@@ -13,6 +13,32 @@ val configs: AppCompatConfigs = sortConfigs(
         minVersion = 65820000
         changes(DISABLE_HARDENED_MALLOC, DISABLE_MEMORY_TAGGING)
     },
+
+    // Google Services Framework
+    app("com.google.android.gsf", mainGmsCerts()
+    ) {
+        minVersion = 34
+    },
+
+    // GmsCore ("Play services")
+    app("com.google.android.gms", mainGmsCerts()
+    ) {
+        minVersion = 23_40_00000
+        changes(
+            ALLOW_MEMORY_DYN_CODE_EXEC, // not clear why it's used
+            ALLOW_STORAGE_DYN_CODE_EXEC, // for Dynamite modules
+            SUPPRESS_NATIVE_DEBUGGING_NOTIFICATION, // doesn't break when ptrace access is blocked
+        )
+    },
+
+    // Play Store
+    app("com.android.vending", mainGmsCerts()
+    ) {
+        minVersion = 8_38_1_0000
+        changes(
+            ALLOW_STORAGE_DYN_CODE_EXEC, // for GmsCore Dynamite modules
+        )
+    },
 )
 
 fun mainGmsCerts() = certs(
