@@ -44,6 +44,19 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
         )
     }
 
+    val chromiumChanges = arrayOf(
+        ALLOW_MEMORY_DYN_CODE_EXEC, // for JIT
+        // crashpad uses ptrace and fallbacks to the standard crash handling when ptrace is
+        // blocked
+        SUPPRESS_NATIVE_DEBUGGING_NOTIFICATION,
+    )
+
+    val vanadiumCert = certs("c6adb8b83c6d4c17d292afde56fd488a51d316ff8f2c11c5410223bff8a7dbb3")
+
+    arrayOf("app.vanadium.browser", "org.chromium.chrome" /* original-package */, ).forEach {
+        l += app(it, vanadiumCert) { changes_(chromiumChanges) }
+    }
+
     return l
 }
 
@@ -108,6 +121,10 @@ fun app(name: String, certDigests: List<CertSha256>, configs: List<CompatConfig.
 }
 
 fun CompatConfig.Builder.changes(vararg list: CompatChange) {
+    compatChanges = compatChanges or enumBits(list)
+}
+
+fun CompatConfig.Builder.changes_(list: Array<CompatChange>) {
     compatChanges = compatChanges or enumBits(list)
 }
 
