@@ -45,6 +45,9 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
     }
 
     val chromiumChanges = arrayOf(
+        // blocked unconditionally for Vanadium in the OS, but might be required for other
+        // Chromium-based browsers
+        ALLOW_STORAGE_DYN_CODE_EXEC,
         ALLOW_MEMORY_DYN_CODE_EXEC, // for JIT
         // crashpad uses ptrace and fallbacks to the standard crash handling when ptrace is
         // blocked
@@ -55,6 +58,13 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
 
     arrayOf("app.vanadium.browser", "org.chromium.chrome" /* original-package */, ).forEach {
         l += app(it, vanadiumCert) { changes_(chromiumChanges) }
+    }
+
+    l += app("com.android.chrome", certs(
+        "f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+    )) {
+        minVersion = 598_000_000
+        changes_(chromiumChanges)
     }
 
     return l
