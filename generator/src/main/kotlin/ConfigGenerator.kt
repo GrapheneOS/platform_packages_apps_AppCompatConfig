@@ -74,6 +74,13 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
         changes_(chromiumChanges)
     }
 
+    // Android Auto
+    l += app("com.google.android.projection.gearhead", certs(
+        "1ca8dcc0bed3cbd872d2cb791200c0292ca9975768a82d676b8b424fb65b5295"
+    )) {
+        minVersion = 11_0_635014
+    }
+
     return l
 }
 
