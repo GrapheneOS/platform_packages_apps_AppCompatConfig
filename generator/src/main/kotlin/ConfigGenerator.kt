@@ -79,6 +79,9 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
         "1ca8dcc0bed3cbd872d2cb791200c0292ca9975768a82d676b8b424fb65b5295"
     )) {
         minVersion = 11_0_635014
+        changes(
+            ALLOW_STORAGE_DYN_CODE_EXEC, // for GmsCore Dynamite modules
+        )
     }
 
     return l
