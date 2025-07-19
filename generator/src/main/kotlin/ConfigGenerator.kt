@@ -40,6 +40,7 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
     l += app("com.android.vending", mainGmsCerts) {
         minVersion = 8_38_1_0000
         changes(
+            ALLOW_MEMORY_DYN_CODE_EXEC, // not clear why it's used
             ALLOW_STORAGE_DYN_CODE_EXEC, // for GmsCore Dynamite modules
         )
     }
