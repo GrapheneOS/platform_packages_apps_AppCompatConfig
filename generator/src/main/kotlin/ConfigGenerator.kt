@@ -159,7 +159,7 @@ fun CompatConfig.Builder.changes_(list: List<CompatChange>) {
 fun <T : ProtocolMessageEnum> enumBits(bits: List<T>): Long {
     var v = 0L
     bits.forEach {
-        v = v or (1 shl it.number).toLong()
+        v = v or (1L shl it.number)
     }
     return v
 }
