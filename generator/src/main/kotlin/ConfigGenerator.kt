@@ -68,11 +68,13 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
         changes_(chromiumChanges)
     }
 
-    l += app("com.brave.browser", certs(
-        "9c2db70513515fdbfbbc585b3edf3d7123d4dc67c94ffd306361c1d79bbf18ac",
-    )) {
-        minVersion = 426_000_000
-        changes_(chromiumChanges)
+    listOf("browser", "browser_beta", "browser_nightly").forEach {
+        l += app("com.brave.${it}", certs(
+            "9c2db70513515fdbfbbc585b3edf3d7123d4dc67c94ffd306361c1d79bbf18ac",
+        )) {
+            minVersion = 426_000_000
+            changes_(chromiumChanges)
+        }
     }
 
     // Android Auto
