@@ -85,6 +85,44 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
         )
     }
 
+    // All five Uber apps embed libse.so, which streams /proc/self/smaps while
+    // allocating per VMA. hardened_malloc's per-allocation guarded VMAs feed
+    // back into the live smaps stream and the app runs out of memory. See
+    // https://github.com/GrapheneOS/hardened_malloc/issues/348.
+    // com.uber.restaurants and com.uber.restaurantmanager do not appear to
+    // crash on launch without a login, but they still ship libse.so.
+    val uberChanges = listOf(DISABLE_HARDENED_MALLOC)
+
+    val uberMainCert = certs(
+        "4003231ab42feb8d955e62fdfaa4fad59567054b9c6bbc3d950299ddfc268392",
+    )
+    val uberMobileCiCert = certs(
+        "9a8cdc86876049a38254331a7445391464c5e3a7d05f7c8d58832e942311c4aa",
+    )
+
+    l += app("com.ubercab", uberMainCert) {
+        minVersion = 286799
+        changes_(uberChanges)
+    }
+    l += app("com.ubercab.driver", uberMainCert) {
+        minVersion = 284959
+        changes_(uberChanges)
+    }
+    l += app("com.ubercab.eats", uberMobileCiCert) {
+        minVersion = 112185139
+        changes_(uberChanges)
+    }
+    l += app("com.uber.restaurants", uberMobileCiCert) {
+        minVersion = 286674
+        changes_(uberChanges)
+    }
+    l += app("com.uber.restaurantmanager", certs(
+        "5004658e45f8b06c954b424d1428c5a8cbb6c3b808d1e036f1b90c586e987724",
+    )) {
+        minVersion = 262050
+        changes_(uberChanges)
+    }
+
     return l
 }
 
