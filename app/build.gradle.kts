@@ -26,8 +26,8 @@ android {
 
     sourceSets.getByName("main") {
         manifest.srcFile("AndroidManifest.xml")
-        res.srcDir("res")
-        resources.srcDir("../app_compat_configs.pb")
+        res.directories.add("res")
+        resources.directories.add("../app_compat_configs.pb")
     }
 
     tasks.preBuild {
