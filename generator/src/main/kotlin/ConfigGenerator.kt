@@ -68,6 +68,17 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
         changes_(chromiumChanges)
     }
 
+    listOf(
+        "beta" to "da633d34b69e63ae2103b49d53ce052fc5f7f3c53aab94fdc2a208bdfd14249c",
+        "canary" to "2019dfa1fb23efbf70c5bcd1443c5beab04f3f2ff4366e9ac1e3457639a24cfc",
+        "dev" to "9044ee5fee4bbc5e21dd44665431c4eb1f1f71a32716a0bc927bcbb39233cabf",
+    ).forEach { (variant, cert) ->
+        l += app("com.chrome.$variant", certs(cert)) {
+            minVersion = 598_000_000
+            changes_(chromiumChanges)
+        }
+    }
+
     listOf("browser", "browser_beta", "browser_nightly").forEach {
         l += app("com.brave.${it}", certs(
             "9c2db70513515fdbfbbc585b3edf3d7123d4dc67c94ffd306361c1d79bbf18ac",
