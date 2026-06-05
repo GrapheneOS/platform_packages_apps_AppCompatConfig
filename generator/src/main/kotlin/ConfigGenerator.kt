@@ -98,13 +98,19 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
         )
     }
 
-    // All five Uber apps embed libse.so, which streams /proc/self/smaps while
-    // allocating per VMA. hardened_malloc's per-allocation guarded VMAs feed
-    // back into the live smaps stream and the app runs out of memory. See
-    // https://github.com/GrapheneOS/hardened_malloc/issues/348.
-    // com.uber.restaurants and com.uber.restaurantmanager do not appear to
-    // crash on launch without a login, but they still ship libse.so.
-    val uberChanges = listOf(DISABLE_HARDENED_MALLOC)
+    val uberChanges = listOf(
+        // libse.so streams /proc/self/smaps while allocating per VMA.
+        // hardened_malloc's per-allocation guarded VMAs feed back into the live
+        // smaps stream and the app runs out of memory. See
+        // https://github.com/GrapheneOS/hardened_malloc/issues/348.
+        // All five Uber apps embed libse.so. com.uber.restaurants and
+        // com.uber.restaurantmanager do not appear to crash on launch without a
+        // login, but they still ship libse.so.
+        DISABLE_HARDENED_MALLOC,
+        // for Dynamite modules. Might not be an issue immediately if GmsCore uses modules from
+        // split APK
+        ALLOW_STORAGE_DYN_CODE_EXEC,
+    )
 
     val uberMainCert = certs(
         "4003231ab42feb8d955e62fdfaa4fad59567054b9c6bbc3d950299ddfc268392",
