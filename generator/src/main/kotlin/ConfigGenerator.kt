@@ -30,8 +30,8 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
     l += app("com.google.android.gms", mainGmsCerts) {
         minVersion = 23_40_00000
         changes(
-            ALLOW_MEMORY_DYN_CODE_EXEC, // not clear why it's used
-            ALLOW_STORAGE_DYN_CODE_EXEC, // for Dynamite modules
+            ALLOW_MEMORY_DYN_CODE_LOADING, // not clear why it's used
+            ALLOW_STORAGE_DYN_CODE_LOADING, // for Dynamite modules
             SUPPRESS_NATIVE_DEBUGGING_NOTIFICATION, // doesn't break when ptrace access is blocked
         )
     }
@@ -40,16 +40,16 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
     l += app("com.android.vending", mainGmsCerts) {
         minVersion = 8_38_1_0000
         changes(
-            ALLOW_MEMORY_DYN_CODE_EXEC, // not clear why it's used
-            ALLOW_STORAGE_DYN_CODE_EXEC, // for GmsCore Dynamite modules
+            ALLOW_MEMORY_DYN_CODE_LOADING, // not clear why it's used
+            ALLOW_STORAGE_DYN_CODE_LOADING, // for GmsCore Dynamite modules
         )
     }
 
     val chromiumChanges = listOf(
         // blocked unconditionally for Vanadium in the OS, but might be required for other
         // Chromium-based browsers
-        ALLOW_STORAGE_DYN_CODE_EXEC,
-        ALLOW_MEMORY_DYN_CODE_EXEC, // for JIT
+        ALLOW_STORAGE_DYN_CODE_LOADING,
+        ALLOW_MEMORY_DYN_CODE_LOADING, // for JIT
         // blocking native debugging (ptrace) for children of native zygote is broken in the initial
         // Android 17 GrapheneOS release
         ALLOW_NATIVE_DEBUGGING,
@@ -97,7 +97,7 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
     )) {
         minVersion = 11_0_635014
         changes(
-            ALLOW_STORAGE_DYN_CODE_EXEC, // for GmsCore Dynamite modules
+            ALLOW_STORAGE_DYN_CODE_LOADING, // for GmsCore Dynamite modules
         )
     }
 
@@ -112,7 +112,7 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
         DISABLE_HARDENED_MALLOC,
         // for Dynamite modules. Might not be an issue immediately if GmsCore uses modules from
         // split APK
-        ALLOW_STORAGE_DYN_CODE_EXEC,
+        ALLOW_STORAGE_DYN_CODE_LOADING,
     )
 
     val uberMainCert = certs(
