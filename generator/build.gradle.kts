@@ -7,14 +7,14 @@ plugins {
 }
 
 dependencies {
-    implementation("com.google.protobuf:protobuf-kotlin:4.35.0")
+    implementation("com.google.protobuf:protobuf-kotlin:4.35.1")
     protobuf(files("proto"))
     implementation(kotlin("stdlib-jdk8"))
 }
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:4.35.0"
+        artifact = "com.google.protobuf:protoc:4.35.1"
     }
 }
 
