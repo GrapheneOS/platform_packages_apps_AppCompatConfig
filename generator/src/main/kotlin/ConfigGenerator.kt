@@ -50,6 +50,9 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
         // Chromium-based browsers
         ALLOW_STORAGE_DYN_CODE_EXEC,
         ALLOW_MEMORY_DYN_CODE_EXEC, // for JIT
+        // blocking native debugging (ptrace) for children of native zygote is broken in the initial
+        // Android 17 GrapheneOS release
+        ALLOW_NATIVE_DEBUGGING,
         // crashpad uses ptrace and fallbacks to the standard crash handling when ptrace is
         // blocked
         SUPPRESS_NATIVE_DEBUGGING_NOTIFICATION,
