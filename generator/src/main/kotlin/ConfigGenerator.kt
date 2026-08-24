@@ -33,6 +33,7 @@ fun getUnsortedConfigs(): List<AppCompatConfig> {
             ALLOW_MEMORY_DYN_CODE_LOADING, // not clear why it's used
             ALLOW_STORAGE_DYN_CODE_LOADING, // for Dynamite modules
             SUPPRESS_NATIVE_DEBUGGING_NOTIFICATION, // doesn't break when ptrace access is blocked
+            DISABLE_MEMORY_TAGGING, // Fix https://github.com/GrapheneOS/os-issue-tracker/issues/8593
         )
     }
 
