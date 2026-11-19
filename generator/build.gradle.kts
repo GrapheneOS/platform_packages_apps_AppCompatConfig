@@ -3,7 +3,7 @@ import com.google.protobuf.gradle.*
 plugins {
     kotlin("jvm")
     id("application")
-    id("com.google.protobuf") version "0.10.0"
+    id("com.google.protobuf") version "0.10.1"
 }
 
 dependencies {
